@@ -1,15 +1,18 @@
-FROM python:3.9.11
+FROM node:22.18.0-bullseye
 
 WORKDIR /usr/src/app
 
-RUN pip install awscli
-RUN aws --version
+RUN npm i aws-sdk@2.1297.0
 
-RUN pip install httpx==0.15.3 # oh no we might have cves ;-)
+RUN npx aws --version
+
+RUN npm i libxml # oh no we might have cves ;-)
 
 COPY requirements.txt requirements.txt
 
-RUN pip install --no-cache-dir -r requirements.txt
+COPY package.json package-lock.json ./
+
+RUN npm install
 
 RUN echo "Arnica is awesome!!!"
 
