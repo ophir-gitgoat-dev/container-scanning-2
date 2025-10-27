@@ -8,8 +8,6 @@ RUN npx aws --version
 
 RUN npm i libxml # oh no we might have cves ;-)
 
-COPY requirements.txt requirements.txt
-
 COPY package.json package-lock.json ./
 
 RUN npm install
