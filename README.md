@@ -45,13 +45,14 @@ git push origin main
 1. In Arnica: **Policies** → **Create New Policy**
 2. Configure:
    - **Name**: "Dockerfile PR Labeling - Node.js"
-   - **Type**: Pull Request Policy
-   - **Trigger**: On PR creation/update
-   - **Scope**: Apply to `container-scanning-2` only
-   - **Actions**: Add labels when Dockerfile changes detected:
-     - `dockerfile-changes`
-     - `security-review-needed`
-     - `dependencies-updated`
+   - **Type**: Code Risk
+   - **Trigger**: On Pull Request (created/updated)
+   - **Scope**: Apply to `container-scanning-2` repository only
+   - **Conditions**: Add file path condition for `*.Dockerfile` and `package*.json`
+   - **Actions**:
+     - Add Label: `dockerfile-changes`
+     - Add Label: `security-review-needed`
+     - Post Comment on PR (optional)
 3. Save
 
 ### 5. Test the Policy
@@ -71,13 +72,8 @@ Create a Pull Request on GitHub and watch Arnica automatically add labels.
 - **Policies** → Your policy → View execution history
 - **Repositories** → `container-scanning-2` → **Pull Requests** tab
 
-## Expected Vulnerabilities
-- `http-proxy-agent@1.0.0` (known CVEs)
-- `aws-sdk@2.1297.0` (older version with issues)
-- Multiple npm package vulnerabilities
-
 ## Policy Type
-**Pull Request policy** - Automatically adds labels to PRs when Dockerfile or dependency files are modified.
+**Code Risk policy with On Pull Request trigger** - Automatically adds labels and comments to PRs when Dockerfile or dependency files are modified.
 
 ---
 
