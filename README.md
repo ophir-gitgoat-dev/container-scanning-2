@@ -40,6 +40,7 @@ git push origin main
 3. Add this repository
 4. Ensure Arnica has PR permissions
 5. Wait 1-2 minutes for sync
+6. Add Integration for [Container scanning](https://docs.arnica.io/arnica-documentation/getting-started/container-integrations/ghcr)
 
 ### 4. Set Up Policy (Pull Request Labeling)
 1. In Arnica: **Policies** → **Create New Policy**
@@ -50,31 +51,18 @@ git push origin main
    - **Scope**: Apply to `container-scanning-2` repository only
    - **Conditions**: Add file path condition for `*.Dockerfile` and `package*.json`
    - **Actions**:
-     - Add Label: `dockerfile-changes`
-     - Add Label: `security-review-needed`
-     - Post Comment on PR (optional)
+     - Label all Dockerfiles
+     - Enable both annotationsq
 3. Save
 
+![Policy Configuration](image.png)
+
 ### 5. Test the Policy
-```bash
-# Create a test branch and modify Dockerfile
-git checkout -b test/dockerfile-update
-echo "# Test change" >> awsome-content.Dockerfile
-git add awsome-content.Dockerfile
-git commit -m "Test: Update Dockerfile"
-git push origin test/dockerfile-update
-```
+1. create a small PR in the repo that just changes a simple file (dosne't need to be the Dockerfile itself)
+2. verify after a few seconds Arnica adds a commit with the new lables.
 
 Create a Pull Request on GitHub and watch Arnica automatically add labels.
-
-### 6. View Results in Arnica
-- **Pull Requests** → `container-scanning-2` → View labeled PRs
-- **Policies** → Your policy → View execution history
-- **Repositories** → `container-scanning-2` → **Pull Requests** tab
 
 ## Policy Type
 **Code Risk policy with On Pull Request trigger** - Automatically adds labels and comments to PRs when Dockerfile or dependency files are modified.
 
----
-
-See `container-scanning-1` for the **line-based content scanning policy** demo.
