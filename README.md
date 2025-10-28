@@ -52,7 +52,7 @@ git push origin main
    - **Conditions**: Add file path condition for `*.Dockerfile` and `package*.json`
    - **Actions**:
      - Label all Dockerfiles
-     - Enable both annotationsq
+     - Enable both annotations
 3. Save
 
 ![Policy Configuration](image.png)
